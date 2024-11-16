@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dashboard.dart';
 import 'onlinemovie.dart';
 import 'film.dart';
@@ -16,13 +17,22 @@ abstract class User {
       : id = counter++;
 
   static void login(String username, String password) {
+    bool login = false;
     for (var cekMember in memberMember) {
       if (cekMember.username == username && cekMember.password == password) {
         dashboardCustomer(cekMember);
-      } else if (admin1.username == username && admin1.password == password) {
+        login = true;
+        break;
+      }
+    }
+    if (!login) {
+      if (admin1.username == username && admin1.password == password) {
         dashboardAdmin();
       } else {
         print("Username atau Password Salah!");
+
+        stdout.write("Lanjut? (Enter)");
+        stdin.readLineSync();
       }
     }
   }
@@ -55,21 +65,22 @@ class Admin extends User {
   Admin(super.nama, super.username, super.password);
 
   @override
-  void updateProfile(Admin) {}
+  void updateProfile(Admin admin) {}
 
   void tambahFilm() {
     String judulBaru = Input(prompt: "Masukan Judul Film Baru: ").interact();
-    String genre = Input(prompt: "Masukan Genree Film: ").interact();
-    String tglRilis = Input(prompt: "Masukan Tanggal Rilis Film: ").interact();
+    String genre = Input(prompt: "Masukan Genre Film: ").interact();
+    String thnRilis = Input(prompt: "Masukan Tahun Rilis Film: ").interact();
     double rating =
         double.parse(Input(prompt: "Masukan Rating Film (1-5)").interact());
     int durasi =
         int.parse(Input(prompt: "Masukan Durasi Film (Menit): ").interact());
-    filmBaru.tambahFilm(Film(judulBaru, genre, tglRilis, rating, durasi));
+    filmBaru.tambahFilm(Film(judulBaru, genre, thnRilis, rating, durasi));
     print("Film $judulBaru telah ditabahkan!");
   }
 
   void updateFilm() {
+    filmBaru.lihatFilm();
     int id = int.parse(
         Input(prompt: "Film dengan ID berapa yang ingin kamu perbaharui: ")
             .interact());
@@ -77,6 +88,7 @@ class Admin extends User {
   }
 
   void hapusFilm() {
+    filmBaru.lihatFilm();
     int id = int.parse(
         Input(prompt: "Film dengan ID berapa yang ingin kamu Hapus: ")
             .interact());

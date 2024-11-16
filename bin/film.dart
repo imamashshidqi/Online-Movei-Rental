@@ -12,11 +12,11 @@ class Film {
   int id;
   String judul;
   String genre;
-  String tglRilis;
+  String thnRilis;
   double rating;
   int durasi;
 
-  Film(this.judul, this.genre, this.tglRilis, this.rating, this.durasi)
+  Film(this.judul, this.genre, this.thnRilis, this.rating, this.durasi)
       : id = counter++;
 
   void tambahFilm(Film filmBaru) {
@@ -29,7 +29,7 @@ class Film {
       ..insertColumn(header: "ID", alignment: TextAlignment.center)
       ..insertColumn(header: "Judul", alignment: TextAlignment.center)
       ..insertColumn(header: "Genre", alignment: TextAlignment.center)
-      ..insertColumn(header: "Tanggal Rilis", alignment: TextAlignment.center)
+      ..insertColumn(header: "Tahun Rilis", alignment: TextAlignment.center)
       ..insertColumn(header: "Rating", alignment: TextAlignment.center)
       ..insertColumn(header: "Durasi", alignment: TextAlignment.center)
       ..borderColor = ConsoleColor.cyan
@@ -47,7 +47,7 @@ class Film {
           filmku.id,
           filmku.judul,
           filmku.genre,
-          filmku.tglRilis,
+          filmku.thnRilis,
           filmku.rating,
           filmku.durasi
         ]);
@@ -69,6 +69,8 @@ class Film {
       String judulBaru = Input(prompt: "Masukan Judul baru: ").interact();
       filmFilm[index].judul = judulBaru;
       print("Judul Film telah berhasil diperbaharui!");
+      stdout.write("Lanjut? (Enter)");
+      stdin.readLineSync();
     }
   }
 
@@ -85,6 +87,8 @@ class Film {
       if (hapus == 0) {
         filmFilm.removeAt(index);
         print("Film $judul telah berhasil dihapus!");
+        stdout.write("Lanjut? (Enter)");
+        stdin.readLineSync();
       }
     }
   }

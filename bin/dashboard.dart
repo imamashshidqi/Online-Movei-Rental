@@ -11,7 +11,7 @@ void dashboardCustomer(Customer member) {
     console.setBackgroundColor(ConsoleColor.blue);
     console.setTextStyle(bold: true);
     console.writeLine("Hallo, ${member.nama}", TextAlignment.left);
-    console.writeLine("Halaman Admin!", TextAlignment.center);
+    console.writeLine("Halaman Customer!", TextAlignment.center);
     console.resetColorAttributes();
     int pilihan = Select(
             prompt: "Pilih Menu Customer!",
